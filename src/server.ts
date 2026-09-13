@@ -1,6 +1,7 @@
 import express from "express";
 import dotenv from "dotenv";
 import authRoutes from "./routes/auth.routes";
+import { requireAuth, requireAdmin } from "./middleware/auth";
 
 dotenv.config();
 
@@ -9,6 +10,9 @@ app.use(express.json());
 
 app.get("/health", (req, res) => {
   res.json({ status: "ok" });
+});
+app.get("/api/admin-only-test", requireAuth, requireAdmin, (req, res) => {
+  res.json({ message: "You are an admin, access granted." });
 });
 
 app.use("/api/auth", authRoutes);
