@@ -5,6 +5,7 @@ import { requireAuth, requireAdmin } from "./middleware/auth";
 import categoryRoutes from "./routes/category.routes"; 
 import path from "path";
 import productRoutes from "./routes/product.routes";
+import cartRoutes from "./routes/cart.routes";
 
 dotenv.config();
 
@@ -12,7 +13,9 @@ const app = express();
 app.use(express.json());
 app.use("/api/categories", categoryRoutes);
 app.use("/api/products", productRoutes);
+app.use("/api/cart", cartRoutes);
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+
 
 app.get("/health", (req, res) => {
   res.json({ status: "ok" });
